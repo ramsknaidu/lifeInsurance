@@ -9,6 +9,8 @@ import { ShowQuoteComponent } from './show-quote/show-quote.component';
 import { ShowAdvisorComponent } from './show-advisor/show-advisor.component';
 import { HomeComponent } from './home/home.component';
 import { UniversalGuard } from './universal.guard';
+import { ShowHealthPolicyComponent } from './show-health-policy/show-health-policy.component';
+import { DetailsComponent } from './details/details.component';
 
 const routes: Routes = [
   {path:'', redirectTo: 'home', pathMatch: 'full'},
@@ -16,7 +18,11 @@ const routes: Routes = [
   {path:'login/:msg', component: LoginComponent},
   {path:'home', component: HomeComponent},
   {path:'product', component: ContentComponent},
-  {path:'history', component: ShowPolicyDetailsComponent, canActivate: [UniversalGuard]},
+  {path:'history', component: DetailsComponent, canActivate: [UniversalGuard], 
+  children: [
+    {path:'health', component: ShowHealthPolicyComponent, outlet:'health'},
+    {path:'life', component: ShowPolicyDetailsComponent, outlet: 'life'}]
+  },
   {path:'advisors', component: ShowAdvisorComponent},
   {path:'quote', component: ShowQuoteComponent},
   {path:'branches', component: SearchBranchComponent},
